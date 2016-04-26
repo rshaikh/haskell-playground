@@ -1,3 +1,5 @@
+import Data.List
+
 doubleMe :: Int -> Int
 doubleMe x = x + x
 
@@ -65,3 +67,13 @@ compareWithHundred' = compare 100
 
 reverse' :: [a] -> [a]
 reverse' = foldl (\acc x -> x : acc) []
+
+
+numUniques :: (Eq a) => [a] -> Int
+numUniques = length . nub
+
+
+myFun :: (Eq a) => [a] -> [a]
+myFun = map head .
+            sortBy (\x y -> compare (length y) (length x)) .
+            group
