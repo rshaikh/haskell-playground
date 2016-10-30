@@ -77,3 +77,6 @@ myFun :: (Eq a) => [a] -> [a]
 myFun = map head .
             sortBy (\x y -> compare (length y) (length x)) .
             group
+
+sayHello :: String -> IO()
+sayHello name = putStrLn("Hello " ++ name)
