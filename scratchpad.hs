@@ -80,3 +80,12 @@ myFun = map head .
 
 sayHello :: String -> IO()
 sayHello name = putStrLn("Hello " ++ name)
+
+foo = x + 1 where x = 10
+foo' = let x = 10 in x + 1
+foo'' = (\x -> x + 1) 10
+
+ex1 = let x = 3; y=1000 in x * 3 + y
+ex1WithWhere = x * 3 + y where x = 3; y=1000
+ex2 = let y = 10; x = 10 * 5 + y in x * 5
+ex2WithWhere = x * 5 where y = 10; x = 10 * 5 + y
