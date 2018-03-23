@@ -1,5 +1,5 @@
-#Chapter 4 - 
-###Types
+# Chapter 4 - 
+### Types
 - Expressions reduced to values; every value has a type
 - `data Bool = True | False` ; here `Bool` is type constructor and `True` `False` are data constructor
 - Both type and data constructors may have parameters
@@ -19,7 +19,7 @@ Prelude> :type (+)
 (Ord a, Num a) => a -> Ordering
 ```
 
-###Currying
+### Currying
 - Possible because of `->`, it's an infix right associative type constructor
 - All functions take one argument and return one result
 - `->` is type constructor for functions `a -> a -> a` represents successive function application
