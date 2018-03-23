@@ -1,4 +1,4 @@
-# Chapter 4 - 
+# Chapter 4 - Types 
 ### Types
 - Expressions reduced to values; every value has a type
 - `data Bool = True | False` ; here `Bool` is type constructor and `True` `False` are data constructor
@@ -41,8 +41,9 @@ an Integer argument and returns a function which in turn takes Integer arg and r
 ### Polymorphism 
 - Made of many forms
 - Type signature may have three kinds of types: concrete, constrained polymorphic and parametrically polymorphic
-- Constrained polymorphism also known as ad-hoc polymorphism in haskell
-- Parametric polymorphism refers to type variables
+- Ad-hoc polymorphism is also known as constrained polymorphism in haskell, `(+) :: Num a => a -> a -> a`
+- Example of Ad-hoc polymorphism: `f :: a -> a -> a`, here if `f` uses `(+)` then it's type would be constrained by `Num a`
+- Parametric polymorphism refers to type variables, `c' :: a -> a -> a`
 - Constrained polymorphism puts typeclass constraints on type variables 
 - For example, identity function. `id :: a -> a`, here `a` is not constrained by any type class
 
