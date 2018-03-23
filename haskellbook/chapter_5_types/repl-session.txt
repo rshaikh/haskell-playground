@@ -1,0 +1,533 @@
+AL-62:chapter_5_types r.shaikh$ stack ghci
+
+Warning: No local targets specified, so ghci will not use any options from your package.yaml / *.cabal files.
+
+         Potential ways to resolve this:
+         * If you want to use the package.yaml / *.cabal package in the current directory, use stack init to create a new stack.yaml.
+         * Add to the 'packages' field of /Users/r.shaikh/.stack/global-project/stack.yaml
+
+Configuring GHCi with the following packages:
+GHCi, version 8.2.2: http://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /private/var/folders/83/8fnxspg57wxf4mv3txy1qnnj0d1tqq/T/ghci67352/ghci-script
+Prelude>
+Prelude>
+Prelude>
+Prelude> :load exercise-1.hs
+[1 of 1] Compiling Exercise1        ( exercise-1.hs, interpreted )
+Ok, one module loaded.
+*Exercise1> addStuff 10 5
+20
+*Exercise1> :t addStuff
+addStuff :: Integer -> Integer -> Integer
+*Exercise1> :r
+[1 of 1] Compiling Exercise1        ( exercise-1.hs, interpreted )
+
+exercise-1.hs:9:1: error:
+    Parse error: module header, import declaration
+    or top-level declaration expected.
+  |
+9 | print fifteen
+  | ^^^^^^^^^^^^^
+Failed, no modules loaded.
+Prelude> :r
+[1 of 1] Compiling Exercise1        ( exercise-1.hs, interpreted )
+Ok, one module loaded.
+*Exercise1> fi
+fifteen  filter
+*Exercise1> fifteen
+15
+*Exercise1>
+*Exercise1> :m
+Prelude> let curry f a b = f (a, b)
+Prelude> :t curry
+curry :: ((a, b) -> t) -> a -> b -> t
+Prelude> :t fst
+fst :: (a, b) -> a
+Prelude> :t curry fst
+curry fst :: t -> b -> t
+Prelude> :t curry (+)
+curry (+) :: Num (a, b) => a -> b -> (a, b) -> (a, b)
+Prelude> :t curry fst
+curry fst :: t -> b -> t
+Prelude> curry fast 1 2
+
+<interactive>:18:7: error:
+    • Variable not in scope: fast :: (Integer, Integer) -> t
+    • Perhaps you meant one of these:
+        ‘last’ (imported from Prelude), ‘fst’ (imported from Prelude)
+Prelude> curry fst 1 2
+1
+Prelude>
+Prelude>
+Prelude> curry fst 100 200
+100
+Prelude> :t curry
+curry :: ((a, b) -> t) -> a -> b -> t
+Prelude> :t fst
+fst :: (a, b) -> a
+Prelude> :t curry d
+decodeFloat  div          divMod       drop         dropWhile
+Prelude> :t curry fst
+curry fst :: t -> b -> t
+Prelude> let uncurry f (a,b) = f a b
+Prelude> :t un
+uncurry    unlines    unwords    unzip3
+undefined  until      unzip
+Prelude> :t uncurry
+uncurry :: (t1 -> t2 -> t3) -> (t1, t2) -> t3
+Prelude> :t (+)
+(+) :: Num a => a -> a -> a
+Prelude> :t un
+uncurry    unlines    unwords    unzip3
+undefined  until      unzip
+Prelude> :t uncurry (+)
+uncurry (+) :: Num t3 => (t3, t3) -> t3
+Prelude> uncurry (+) (1,2)
+3
+Prelude>
+Prelude> let f :: a -> a -> a -> a; f = undefined
+Prelude> let x :: Char; x = undefined
+Prelude> :t f x
+f x :: Char -> Char -> Char
+Prelude> let g = a -> b -> c -> b; g=undefined
+
+<interactive>:35:11: error: parse error on input ‘->’
+Prelude> let g  a -> b -> c -> b; g=undefined
+
+<interactive>:36:10: error: parse error on input ‘->’
+Prelude> let g :: a -> b -> c -> b; g=undefined
+Prelude> :t g
+g :: a -> b -> c -> b
+Prelude> :t g 0 'C' "Woot"
+g 0 'C' "Woot" :: Char
+Prelude>
+Prelude>
+Prelude> f
+
+<interactive>:42:1: error:
+    • No instance for (Show (a0 -> a0 -> a0 -> a0))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude> f 'x"
+
+<interactive>:43:6: error:
+    lexical error in string/character literal at end of input
+Prelude> f 'x'
+
+<interactive>:44:1: error:
+    • No instance for (Show (Char -> Char -> Char))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude>
+Prelude>
+Prelude>
+Prelude> let f :: a -> a -> a -> a; f = undefined
+Prelude> let x :: Char; x = undefined
+Prelude> f x
+
+<interactive>:50:1: error:
+    • No instance for (Show (Char -> Char -> Char))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude> :t f x
+f x :: Char -> Char -> Char
+Prelude>
+Prelude> : g
+g :: a -> b -> c -> b
+Prelude> :g 0 'c' "Woot"
+unknown command ':g'
+use :? for help.
+Prelude> :t g 0 'c' "Woot"
+g 0 'c' "Woot" :: Char
+Prelude> let h :: (Num a, Num b) => a -> b -> b; h = undefined
+Prelude> :t h 1.0 2
+h 1.0 2 :: Num b => b
+Prelude> :t h 1 (5.5 :: Double )
+h 1 (5.5 :: Double ) :: Double
+Prelude>
+Prelude>
+Prelude> let jackal :: (Ord a, Eq b) => a -> b -> a;jackal=undefined
+Prelude> jackal "foo" "bar"
+"*** Exception: Prelude.undefined
+CallStack (from HasCallStack):
+  error, called at libraries/base/GHC/Err.hs:79:14 in base:GHC.Err
+  undefined, called at <interactive>:61:51 in interactive:Ghci13
+Prelude> :t jackal "foo" "bar"
+jackal "foo" "bar" :: [Char]
+Prelude> :t jackal "keyboard"
+jackal "keyboard" :: Eq b => b -> [Char]
+Prelude> let kessel :: (Ord a, Num b) => a -> b -> a: kessel=undefined
+
+<interactive>:65:5: error:
+    Illegal type signature: ‘(Ord a, Num b) => a -> b -> a : kessel’
+      Type signatures are only allowed in patterns with ScopedTypeVariables
+
+<interactive>:65:43: error:
+    Illegal operator ‘:’ in type ‘a : kessel’
+      Use TypeOperators to allow operators in types
+Prelude> let kessel :: (Ord a, Num b) => a -> b -> a;kessel=undefined
+Prelude> :t kessel 1 2
+kessel 1 2 :: (Num a, Ord a) => a
+Prelude> :t kessel 1
+kessel 1 :: (Num a, Num b, Ord a) => b -> a
+Prelude> :t kessel 'c'
+kessel 'c' :: Num b => b -> Char
+Prelude> :t kessel 'c' 'c'
+
+<interactive>:1:1: error:
+    • No instance for (Num Char) arising from a use of ‘kessel’
+    • In the expression: kessel 'c' 'c'
+Prelude> :t kessel 'c' 1
+kessel 'c' 1 :: Char
+Prelude> :t kessel 1 (2 :: Integ
+Integer   Integral
+Prelude> :t kessel 1 (2 :: Integer )
+kessel 1 (2 :: Integer ) :: (Num a, Ord a) => a
+Prelude> :t kessel (1 :: Integer) 2
+kessel (1 :: Integer) 2 :: Integer
+Prelude>
+Prelude> let id' :: a -> a; id' x = x
+Prelude> id' 10
+10
+Prelude> id' "foo"
+"foo"
+Prelude> id' 10.5
+10.5
+Prelude> let id' :: a -> a; id' x = x + 1
+
+<interactive>:79:28: error:
+    • No instance for (Num a) arising from a use of ‘+’
+      Possible fix:
+        add (Num a) to the context of
+          the type signature for:
+            id' :: forall a. a -> a
+    • In the expression: x + 1
+      In an equation for ‘id'’: id' x = x + 1
+Prelude> let id' :: (Num a) => a -> a; id' x = x + 1
+Prelude> id' 10
+11
+Prelude> id' 10.5
+11.5
+Prelude> id' "cd"
+
+<interactive>:83:1: error:
+    • No instance for (Num [Char]) arising from a use of ‘id'’
+    • In the expression: id' "cd"
+      In an equation for ‘it’: it = id' "cd"
+Prelude> let f2 :: a -> a -> a; f2 x y = x;f2 x y = y
+
+<interactive>:84:35: warning: [-Woverlapping-patterns]
+    Pattern match is redundant
+    In an equation for ‘f2’: f2 x y = ...
+Prelude> let f2 :: a -> a -> a; f2 x y = x
+Prelude> f2 10 20
+10
+Prelude> f2 "10" "foo"
+"10"
+Prelude> let f3 :: a -> b -> b; f3 x y = y
+Prelude> f3 10 20
+20
+Prelude> f3 10
+
+<interactive>:90:1: error:
+    • No instance for (Show (b0 -> b0)) arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude> : t f3 10 20
+
+<interactive>:1:1: error:
+    Variable not in scope:
+      t :: (a0 -> b0 -> b0) -> Integer -> Integer -> t
+Prelude> : t f3 10
+
+<interactive>:1:1: error:
+    Variable not in scope: t :: (a0 -> b0 -> b0) -> Integer -> t
+Prelude>
+Prelude>
+Prelude> :t f3 10 20
+f3 10 20 :: Num b => b
+Prelude> :t f3 10
+f3 10 :: b -> b
+Prelude> (-10) + 6.3
+-3.7
+Prelude> :t (-10)
+(-10) :: Num a => a
+Prelude> :t (10-)
+(10-) :: Num a => a -> a
+Prelude> let x = 5 + 5
+Prelude> :t x
+x :: Num a => a
+Prelude> let x = 5 + 5 :: Int
+Prelude> :t x
+x :: Int
+Prelude> 6 / 2
+3.0
+Prelude> 6 / length [1]
+
+<interactive>:105:1: error:
+    • No instance for (Fractional Int) arising from a use of ‘/’
+    • In the expression: 6 / length [1]
+      In an equation for ‘it’: it = 6 / length [1]
+Prelude> :t from
+fromEnum      fromIntegral
+fromInteger   fromRational
+Prelude> :t from
+fromEnum      fromIntegral
+fromInteger   fromRational
+Prelude> :t fromInteg
+fromInteger   fromIntegral
+Prelude> :t fromInteg
+fromInteger   fromIntegral
+Prelude> :t fromIntegral
+fromIntegral :: (Num b, Integral a) => a -> b
+Prelude> 6 / from
+fromEnum      fromIntegral
+fromInteger   fromRational
+Prelude> 6 / fromIntegral(2 :: Int)
+3.0
+Prelude> 6 / fromIntegral(length [])
+Infinity
+Prelude> 6 / fromIntegral(length [2])
+6.0
+Prelude> :t fromIntegral(length [2])
+fromIntegral(length [2]) :: Num b => b
+Prelude>
+Prelude> let myGreet x = x ++ "Rashid"
+Prelude> :t myGreet
+myGreet :: [Char] -> [Char]
+Prelude> let myGreet x = x ++ y
+
+<interactive>:114:22: error: Variable not in scope: y :: [a]
+Prelude> let myGreet x y = x ++ y
+Prelude> :t myGreet
+myGreet :: [a] -> [a] -> [a]
+Prelude> let myConcat x = x ++ "YO"
+Prelude> :t myConcat
+myConcat :: [Char] -> [Char]
+Prelude> let myMult x = (x / 3) * 5
+Prelude> :t myMult
+myMult :: Fractional a => a -> a
+Prelude> ley myTake x = take x "hey you"
+Prelude> :t myTake
+
+<interactive>:1:1: error: Variable not in scope: myTake
+Prelude> ley myTake x = take x "hey you"
+Prelude> let myTake x = take x "hey you"
+Prelude> :t my
+myConcat  myGreet   myMult    myTake
+Prelude> :t myTake
+myTake :: Int -> [Char]
+Prelude> let myCom x = x > (le)
+length  lex     ley
+Prelude> let myCom x = x > (length [1..10])
+Prelude> :t myCo
+myCom     myConcat
+Prelude> :t myCom
+myCom :: Int -> Bool
+Prelude> let myCom x = x > (3 :: Integer )
+Prelude> :t myCom
+myCom :: Integer -> Bool
+Prelude> let myCom x = x > ("FOO")
+Prelude> :t myCom
+myCom :: [Char] -> Bool
+Prelude> let myCom x = x > 'B'
+Prelude> :t myCom
+myCom :: Char -> Bool
+Prelude>
+Prelude> let x = 5 + 5
+Prelude> :t x
+x :: Num a => a
+Prelude> let x = 5 + 5 :: String
+
+<interactive>:137:9: error:
+    • No instance for (Num String) arising from a use of ‘+’
+    • In the expression: 5 + 5 :: String
+      In an equation for ‘x’: x = 5 + 5 :: String
+Prelude> (*9) 6
+54
+Prelude> :t (*9) 6
+(*9) 6 :: Num a => a
+Prelude> :t head[(0, "doge"), (1, "kitteh")]head[(0, "doge"), (1, "kitteh")] :: Num a => (a, [Char])
+Prelude>
+Prelude> :t head[(0 :: Integ, "doge"), (1, "kitteh")]
+Integer   Integral
+Prelude> :t head[(0 :: Integer , "doge"), (1, "kitteh")]
+head[(0 :: Integer , "doge"), (1, "kitteh")] :: (Integer, [Char])
+Prelude>
+Prelude> :t if F
+False       Floating    Functor
+FilePath    Foldable
+Float       Fractional
+Prelude> :t if False then True else False
+if False then True else False :: Bool
+Prelude>
+Prelude> le
+length  lex     ley
+Prelude> length [1..10]
+10
+Prelude> :t length [1..10]
+length [1..10] :: Int
+Prelude> :t length [1..10] > le
+length  lex     ley
+Prelude> :t length [1..10] > length "foo"
+length [1..10] > length "foo" :: Bool
+Prelude>
+Prelude>
+Prelude> x = 5
+Prelude> y = x+ 5
+Prelude> w = y * 10
+Prelude> :e
+editor not set, use :set editor
+Prelude> :e
+editor not set, use :set editor
+Prelude> :w
+Prelude> :t w
+w :: Num a => a
+Prelude> z y = y * 10
+Prelude> :z
+unknown command ':z'
+use :? for help.
+Prelude> :t z
+z :: Num a => a -> a
+Prelude> f = 4 / y
+Prelude> :t f
+f :: Fractional a => a
+Prelude> x = "Rashid"
+Prelude> y " <3"
+
+<interactive>:164:1: error:
+    • Non type-variable argument in the constraint: Num ([Char] -> t)
+      (Use FlexibleContexts to permit this)
+    • When checking the inferred type
+        it :: forall t. Num ([Char] -> t) => t
+Prelude> y = " <3"
+Prelude> z = "Haskell"
+Prelude> f = x + y + z
+
+<interactive>:167:5: error:
+    • No instance for (Num [Char]) arising from a use of ‘+’
+    • In the expression: x + y + z
+      In an equation for ‘f’: f = x + y + z
+Prelude> x
+"Rashid"
+Prelude> y
+" <3"
+Prelude> z
+"Haskell"
+Prelude> f = x ++ y ++ z
+Prelude> :t f
+f :: [Char]
+Prelude> bigNum = (^) 5 $ 10
+Prelude> :t bigNum
+bigNum :: Num a => a
+Prelude> wahoo = bigNum $ 10
+
+<interactive>:175:1: error:
+    • Non type-variable argument in the constraint: Num (t1 -> t2)
+      (Use FlexibleContexts to permit this)
+    • When checking the inferred type
+        wahoo :: forall t1 t2. (Num (t1 -> t2), Num t1) => t2
+Prelude> bigNum x = (^) 5 $ 10
+Prelude> wahoo = bigNum $ 10
+Prelude> wahoo
+9765625
+Prelude> 5 ^ 10
+9765625
+Prelude> x = pr
+pred            product
+print           properFraction
+Prelude> x = print
+Prelude> :t x
+x :: Show a => a -> IO ()
+Prelude> y = print "woohoo!"
+Prelude> :t y
+y :: IO ()
+Prelude> y
+"woohoo!"
+Prelude> z = x "hello world!"
+Prelude> z
+"hello world!"
+Prelude> :t z
+z :: IO ()
+Prelude> a = (+)
+Prelude> :t a
+a :: Num a => a -> a -> a
+Prelude> b = 5
+Prelude> c = b 10
+
+<interactive>:191:1: error:
+    • Non type-variable argument in the constraint: Num (t1 -> t2)
+      (Use FlexibleContexts to permit this)
+    • When checking the inferred type
+        c :: forall t1 t2. (Num (t1 -> t2), Num t1) => t2
+Prelude> c = b `a` 10
+Prelude> :t c
+c :: Num a => a
+Prelude> c
+15
+Prelude> d = c `a` 200
+Prelude> d
+215
+Prelude> a = 12 + b
+Prelude> a = 12 + b
+Prelude> b = 1000 * c
+Prelude>
+Prelude> b
+15000
+Prelude> c
+15
+Prelude> i:: a -> a
+
+<interactive>:203:1: error: Variable not in scope: i :: a1 -> a1
+Prelude> let i :: a -> a
+
+<interactive>:204:5: error:
+    The type signature for ‘i’ lacks an accompanying binding
+Prelude> let i :: a -> a; i x = x
+Prelude> i 10
+10
+Prelude> let c :: a -> b -> a; c x y = x
+Prelude> c 10 20
+10
+Prelude> :t c
+c :: a -> b -> a
+Prelude> let c :: a -> b -> a; c x y = 10
+
+<interactive>:210:31: error:
+    • No instance for (Num a) arising from the literal ‘10’
+      Possible fix:
+        add (Num a) to the context of
+          the type signature for:
+            c :: forall a b. a -> b -> a
+    • In the expression: 10
+      In an equation for ‘c’: c x y = 10
+Prelude> let c :: a -> b -> a; c x y = x
+Prelude> let c :: a -> b -> a; c x y = x + 1-
+
+<interactive>:212:37: error:
+    parse error (possibly incorrect indentation or mismatched brackets)
+Prelude> let c :: a -> b -> a; c x y = x + 10
+
+<interactive>:213:31: error:
+    • No instance for (Num a) arising from a use of ‘+’
+      Possible fix:
+        add (Num a) to the context of
+          the type signature for:
+            c :: forall a b. a -> b -> a
+    • In the expression: x + 10
+      In an equation for ‘c’: c x y = x + 10
+Prelude> let c :: a -> b -> a; c x y = x
+Prelude> let r :: [a] -> [a]; r xs = take 1 xs
+Prelude> r "rashid"
+"r"
+Prelude> let r :: [a] -> [a]; r xs = xs
+Prelude>
+Prelude> let co :: (b -> c) -> (a -> b) -> (a -> c); co f g  = undefined
+Prelude> let co :: (b -> c) -> (a -> b) -> (a -> c); co f g  = \a -> f(g(a))
+Prelude>
+Prelude> let a :: (a -> c) -> a -> a; a f x = x
+Prelude>
+Prelude> let a' :: (a -> b) -> a -> b; a' f x  = f(x)
