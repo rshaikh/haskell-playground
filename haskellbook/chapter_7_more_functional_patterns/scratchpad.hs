@@ -48,3 +48,9 @@ numbers x
   | x < 0 = -1
   | x == 0 = 0
   | x > 0 = 1
+
+data Product a b =
+  Product a b
+  deriving (Eq, Show)
+
+productUnpack (Product x y) = (x, y)
